@@ -37,7 +37,7 @@ spec:
               key: password
         - name: PW
           valueFrom:
-            configMapKeyRef:
+            secretKeyRef:
               name: weatherstation-secret
               key: PW
         - name: POCKETBASE_URL
@@ -64,7 +64,7 @@ kind: IngressRoute
 metadata:
   name: acv-api-ingress
 # Wichtig für das Zertifikat wo der Ingress läuft
-  namespace: awesome-cv
+  namespace: swh
   annotations:
     kubernetes.io/ingress.class: traefik-external
 spec:

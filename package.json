@@ -4,7 +4,7 @@
   "description": "The API code on the server for the weather station build in sketching with hardware",
   "main": "index.js",
   "scripts": {
-    "test": "node src/index.js",
+    "start": "node src/index.js",
     "dev": "nodemon src/index.js"
   },
   "repository": {
