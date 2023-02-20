@@ -6,22 +6,13 @@ WORKDIR $WORKDIR
 COPY . .
 
 RUN npm install
-RUN npm run ts:build
-# RUN npm run generate
 
-#ENV GET FROM OUTSIDE
-ARG request_db_connection
-ARG db_username
-ARG db_password
+ARG POCKETBASE_URL="https://pocketbase.sharky.live"
+ARG USERNAME="weatherstation"
+ARG PASSWORD="peqrzzDkX5vCP3GQ"
+ARG PW="secPW123456VerySecureWeatherStationPassword"
 
-ARG NODE_ENV="production"
-ENV DB_CONNECTION = $request_db_connection
-ENV DB_USER = $db_username
-ENV DB_PW = $db_password
-
-ENV SALT_ROUNDS 10 
-
-ENV PORT 3001
+ENV PORT 3000
 EXPOSE $PORT
 
-CMD ["npm", "run", "start:production"]
+CMD ["npm", "run", "start"]

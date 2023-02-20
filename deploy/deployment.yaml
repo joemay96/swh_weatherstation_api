@@ -24,36 +24,40 @@ spec:
         image: joemay96/swh-weatherstation-api:latest
         ports: 
         - containerPort: 3000
-        # TODO: Secret erstellen und pw einfügen
         env:
-        - name: db_username
+        - name: USERNAME
           valueFrom:
             secretKeyRef:
-              name: mongodb-secret
-              key: mongo_root_username
-        - name: db_password
+              name: weatherstation-secret
+              key: username
+        - name: PASSWORD
           valueFrom:
             secretKeyRef:
-              name: mongodb-secret
-              key: mongo_root_password
-        - name: request_db_connection
+              name: weatherstation-secret
+              key: password
+        - name: PW
           valueFrom:
             configMapKeyRef:
-              name: mongodb-configmap
-              key: database_url
+              name: weatherstation-secret
+              key: PW
+        - name: POCKETBASE_URL
+          valueFrom:
+            configMapKeyRef:
+              name: weatherstation-configmap
+              key: POCKETBASE_URL
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: acv-api-service
-  namespace: awesome-cv
+  name: weatherstation-service
+  namespace: swh
 spec:
   selector:
-    app: acv-api
+    app: weatherstation-api
   ports:
   - name: http
     port: 80
-    targetPort: 3001
+    targetPort: 3000
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
@@ -70,7 +74,7 @@ spec:
     - match: Host(`weatherstation.sharky.live`)
       kind: Rule
       services:
-        - name: acv-api-service
+        - name: weatherstation-service
           port: 80
   tls:
-    secretName: awesome-cv-api-tls
+    secretName: weatherstation-api-tls

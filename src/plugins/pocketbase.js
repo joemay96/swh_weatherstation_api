@@ -8,8 +8,8 @@ const POCKETBASE_URL = process.env.POCKETBASE_URL || "http://127.0.0.1:8090";
 
 const authenticate = async () => {
 	const authData = await Client.collection("users").authWithPassword(
-		"weatherstation",
-		"peqrzzDkX5vCP3GQ",
+		process.env.USERNAME,
+		process.env.PASSWORD,
 	);
 };
 
