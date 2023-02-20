@@ -13,7 +13,7 @@ const app = express();
 
 app.set("trust proxy", 1);
 
-app.use(express.static("poublic"));
+app.use(express.static("public"));
 
 //set up view engine
 app.set("view engine", "ejs");
@@ -26,12 +26,19 @@ app.use(express.json());
 
 // The main route, where all the data is shown
 app.get("/", async (req, res) => {
-	const weatherdata = await Client.records.getFullList("weatherdata", 200, {
+	const weatherdata = await Client.collection("weatherdata").getFullList(200, {
 		sort: "-created",
 	});
 
 	res.render("index", {
-		message: weatherdata,
+		data: {
+			timestamp: weatherdata[0].created,
+			humidity: weatherdata[0].humidity,
+			temperature: weatherdata[0].temperature,
+			lightintensity: weatherdata[0].lightintensity,
+			windspeed: weatherdata[0].windspeed,
+			windspeed_cum: weatherdata[0].windspeed_cum,
+		},
 	});
 });
 

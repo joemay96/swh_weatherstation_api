@@ -11,6 +11,7 @@ const authenticate = async () => {
 		"weatherstation",
 		"peqrzzDkX5vCP3GQ",
 	);
+	console.log(authData);
 };
 
 const Client = new PocketBase(POCKETBASE_URL);
