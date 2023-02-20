@@ -1,0 +1,76 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: weatherstation
+  namespace: swh
+  labels:
+    app: weatherstation-api
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: weatherstation-api
+  template:
+    metadata:
+      labels:
+        app: weatherstation-api
+    spec:
+      containers:
+      - name: swh-weatherstation-api
+        image: joemay96/swh-weatherstation-api:latest
+        ports: 
+        - containerPort: 3000
+        # TODO: Secret erstellen und pw einfügen
+        env:
+        - name: db_username
+          valueFrom:
+            secretKeyRef:
+              name: mongodb-secret
+              key: mongo_root_username
+        - name: db_password
+          valueFrom:
+            secretKeyRef:
+              name: mongodb-secret
+              key: mongo_root_password
+        - name: request_db_connection
+          valueFrom:
+            configMapKeyRef:
+              name: mongodb-configmap
+              key: database_url
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: acv-api-service
+  namespace: awesome-cv
+spec:
+  selector:
+    app: acv-api
+  ports:
+  - name: http
+    port: 80
+    targetPort: 3001
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: acv-api-ingress
+# Wichtig für das Zertifikat wo der Ingress läuft
+  namespace: awesome-cv
+  annotations:
+    kubernetes.io/ingress.class: traefik-external
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`weatherstation.sharky.live`)
+      kind: Rule
+      services:
+        - name: acv-api-service
+          port: 80
+  tls:
+    secretName: awesome-cv-api-tls

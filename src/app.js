@@ -32,12 +32,12 @@ app.get("/", async (req, res) => {
 
 	res.render("index", {
 		data: {
-			timestamp: weatherdata[0].created,
-			humidity: weatherdata[0].humidity,
-			temperature: weatherdata[0].temperature,
-			lightintensity: weatherdata[0].lightintensity,
-			windspeed: weatherdata[0].windspeed,
-			windspeed_cum: weatherdata[0].windspeed_cum,
+			timestamp: weatherdata[0]?.created,
+			humidity: weatherdata[0]?.humidity,
+			temperature: weatherdata[0]?.temperature,
+			lightintensity: weatherdata[0]?.lightintensity,
+			windspeed: weatherdata[0]?.windspeed,
+			windspeed_cum: weatherdata[0]?.windspeed_cum,
 		},
 	});
 });

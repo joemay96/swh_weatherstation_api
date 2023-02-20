@@ -9,7 +9,9 @@ router.get("/", (req, res) => {
 
 // recive the data from the weather station and save it in a db
 router.post("/", async (req, res) => {
-	const pw = req.query?.pw;
+	const pw = req.get("ww");
+	console.log(pw);
+	// const pw = req.query?.pw;
 	if (
 		pw === process.env.PW ||
 		pw === "secPW123456VerySecureWeatherStationPassword"
