@@ -5,6 +5,8 @@ const expressLayouts = require("express-ejs-layouts");
 const api = require("./api");
 const middleware = require("./middleware");
 
+const Client = require("./plugins/pocketbase.js");
+
 require("dotenv").config();
 
 const app = express();
@@ -23,9 +25,13 @@ app.use(morgan("dev"));
 app.use(express.json());
 
 // The main route, where all the data is shown
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
+	const weatherdata = await Client.records.getFullList("weatherdata", 200, {
+		sort: "-created",
+	});
+
 	res.render("index", {
-		message: "Hello World!",
+		message: "weatherdata",
 	});
 });
 
