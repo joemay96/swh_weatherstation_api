@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const Client = require("../plugins/pocketbase.js");
+// const Client = require("../plugins/pocketbase.js");
 
 router.get("/", (req, res) => {
 	res.send("ok");

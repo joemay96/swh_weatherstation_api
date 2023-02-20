@@ -31,7 +31,7 @@ app.get("/", async (req, res) => {
 	});
 
 	res.render("index", {
-		message: "weatherdata",
+		message: weatherdata,
 	});
 });
 

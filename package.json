@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/joemay96/swh_weatherstation_api#readme",
   "dependencies": {
+    "cross-fetch": "^3.1.5",
     "dotenv": "^16.0.3",
     "ejs": "^3.1.8",
     "express": "^4.18.2",
