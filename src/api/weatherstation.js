@@ -18,7 +18,6 @@ router.post("/", async (req, res) => {
 
 		try {
 			const record = await Client.collection("weatherdata").create(data);
-			console.log(record);
 			res.sendStatus(200);
 		} catch (err) {
 			console.log(err);
