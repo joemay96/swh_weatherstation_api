@@ -24,13 +24,31 @@ app.use(expressLayouts);
 app.use(morgan("dev"));
 app.use(express.json());
 
-// The main route, where all the data is shown
-app.get("/", async (req, res) => {
-	const weatherdata = await Client.collection("weatherdata").getFullList(200, {
+const requestData = async () => {
+	return await Client.collection("weatherdata").getFullList(200, {
 		sort: "-created",
 	});
+};
 
+// The main route, where all the data is shown
+app.get("/", async (req, res) => {
+	const weatherdata = await requestData();
 	res.render("index", {
+		data: {
+			timestamp: weatherdata[0]?.created,
+			humidity: weatherdata[0]?.humidity,
+			temperature: weatherdata[0]?.temperature,
+			lightintensity: weatherdata[0]?.lightintensity,
+			windspeed: weatherdata[0]?.windspeed,
+			windspeed_cum: weatherdata[0]?.windspeed_cum,
+		},
+	});
+});
+
+app.get("/data", async (req, res) => {
+	const weatherdata = await requestData();
+	console.log(weatherdata);
+	res.render("data", {
 		data: {
 			timestamp: weatherdata[0]?.created,
 			humidity: weatherdata[0]?.humidity,
