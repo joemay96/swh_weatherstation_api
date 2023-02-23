@@ -30,17 +30,41 @@ const requestData = async () => {
 	});
 };
 
+const formatData = (data) => {
+	const timestamps = [];
+	const humidities = [];
+	const temperatures = [];
+	const lightintensities = [];
+	const windspeeds = [];
+
+	data.forEach((row) => {
+		timestamps.puhs(row.created);
+		humidities.puhs(row.humidity);
+		temperatures.puhs(row.temperature);
+		lightintensities.puhs(row.lightintensity);
+		windspeeds.puhs(row.windspeed);
+	});
+
+	return {
+		timestamps,
+		humidities,
+		temperatures,
+		lightintensities,
+		windspeeds,
+	};
+};
+
 // The main route, where all the data is shown
 app.get("/", async (req, res) => {
 	const weatherdata = await requestData();
+	const formattedData = formatData(weatherdata);
 	res.render("index", {
 		data: {
-			timestamp: weatherdata[0]?.created,
-			humidity: weatherdata[0]?.humidity,
-			temperature: weatherdata[0]?.temperature,
-			lightintensity: weatherdata[0]?.lightintensity,
-			windspeed: weatherdata[0]?.windspeed,
-			windspeed_cum: weatherdata[0]?.windspeed_cum,
+			timestamp: formattedData?.timestamps,
+			humidity: formattedData?.humidities,
+			temperature: formattedData?.temperatures,
+			lightintensity: formattedData?.lightintensities,
+			windspeed: formattedData?.windspeeds,
 		},
 	});
 });
