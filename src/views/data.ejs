@@ -1,4 +1,4 @@
-<h1 class="title has-text-centered has-text-white pt-3">Weather Data</h1>
+<h1 class="title has-text-centered has-text-gray pt-3">Weather Data</h1>
 
 <div class="container sixty has-text-centered pb-6">
 	<table class="table is-striped is-fullwidth">
@@ -27,57 +27,17 @@
 			</tr>
 		</tfoot> -->
 		<tbody>
+			<% weatherdata.forEach((dp, index) => { %>
 			<tr>
-				<td>1</td>
-				<td>2</td>
-				<td>3</td>
-				<td>4</td>
-				<td>5</td>
+				<td><%= dp.created.split(" ")[1].split(".")[0].split(":").slice(0,2).join(":") %>
+					<%= dp.created.split(" ")[0].split("-").reverse().join(".") %>
+				</td>
+				<td><%= dp.temperature %></td>
+				<td><%= dp.humidity %></td>
+				<td><%= dp.windspeed %></td>
+				<td><%= dp.lightintensity %></td>
 			</tr>
-			<tr>
-				<td>1</td>
-				<td>2</td>
-				<td>3</td>
-				<td>4</td>
-				<td>5</td>
-			</tr>
-			<tr>
-				<td>1</td>
-				<td>2</td>
-				<td>3</td>
-				<td>4</td>
-				<td>5</td>
-			</tr>
-			<tr>
-				<td>1</td>
-				<td>2</td>
-				<td>3</td>
-				<td>4</td>
-				<td>5</td>
-			</tr>
-			<tr>
-				<td>1</td>
-				<td>2</td>
-				<td>3</td>
-				<td>4</td>
-				<td>5</td>
-			</tr>
-			<tr>
-				<td>1</td>
-				<td>2</td>
-				<td>3</td>
-				<td>4</td>
-				<td>5</td>
-			</tr>
-			<tr>
-				<td>1</td>
-				<td>2</td>
-				<td>3</td>
-				<td>4</td>
-				<td>5</td>
-			</tr>
-
-
+			<% }) %>
 		</tbody>
 	</table>
 </div>

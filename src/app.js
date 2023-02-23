@@ -30,7 +30,7 @@ const requestData = async () => {
 	});
 };
 
-const formatData = (data) => {
+const formatGraphData = (data) => {
 	const timestamps = [];
 	const humidities = [];
 	const temperatures = [];
@@ -38,11 +38,11 @@ const formatData = (data) => {
 	const windspeeds = [];
 
 	data.forEach((row) => {
-		timestamps.puhs(row.created);
-		humidities.puhs(row.humidity);
-		temperatures.puhs(row.temperature);
-		lightintensities.puhs(row.lightintensity);
-		windspeeds.puhs(row.windspeed);
+		timestamps.push(row.created);
+		humidities.push(row.humidity);
+		temperatures.push(row.temperature);
+		lightintensities.push(row.lightintensity);
+		windspeeds.push(row.windspeed);
 	});
 
 	return {
@@ -57,30 +57,22 @@ const formatData = (data) => {
 // The main route, where all the data is shown
 app.get("/", async (req, res) => {
 	const weatherdata = await requestData();
-	const formattedData = formatData(weatherdata);
+	const formattedData = formatGraphData(weatherdata);
 	res.render("index", {
 		data: {
-			timestamp: formattedData?.timestamps,
-			humidity: formattedData?.humidities,
-			temperature: formattedData?.temperatures,
-			lightintensity: formattedData?.lightintensities,
-			windspeed: formattedData?.windspeeds,
+			timestamps: formattedData?.timestamps,
+			humidities: formattedData?.humidities,
+			temperatures: formattedData?.temperatures,
+			lightintensities: formattedData?.lightintensities,
+			windspeeds: formattedData?.windspeeds,
 		},
 	});
 });
 
 app.get("/data", async (req, res) => {
 	const weatherdata = await requestData();
-	console.log(weatherdata);
 	res.render("data", {
-		data: {
-			timestamp: weatherdata[0]?.created,
-			humidity: weatherdata[0]?.humidity,
-			temperature: weatherdata[0]?.temperature,
-			lightintensity: weatherdata[0]?.lightintensity,
-			windspeed: weatherdata[0]?.windspeed,
-			windspeed_cum: weatherdata[0]?.windspeed_cum,
-		},
+		weatherdata,
 	});
 });
 
