@@ -11,21 +11,6 @@
 				<th><abbr title="Lightintensity">Lightintensity</abbr></th>
 			</tr>
 		</thead>
-		<!-- <tfoot>
-			<tr>
-				<th><abbr title="Position">Pos</abbr></th>
-				<th>Team</th>
-				<th><abbr title="Played">Pld</abbr></th>
-				<th><abbr title="Won">W</abbr></th>
-				<th><abbr title="Drawn">D</abbr></th>
-				<th><abbr title="Lost">L</abbr></th>
-				<th><abbr title="Goals for">GF</abbr></th>
-				<th><abbr title="Goals against">GA</abbr></th>
-				<th><abbr title="Goal difference">GD</abbr></th>
-				<th><abbr title="Points">Pts</abbr></th>
-				<th>Qualification or relegation</th>
-			</tr>
-		</tfoot> -->
 		<tbody>
 			<% weatherdata.forEach((dp, index) => { %>
 			<tr>
@@ -39,5 +24,14 @@
 			</tr>
 			<% }) %>
 		</tbody>
+		<tfoot>
+			<tr>
+				<th><abbr title="Timestamp">Time</abbr></th>
+				<th><abbr title="Temperature">Temperature</abbr></th>
+				<th><abbr title="Humidity">Humidity</abbr></th>
+				<th><abbr title="Windspeed">Windspeed</abbr></th>
+				<th><abbr title="Lightintensity">Lightintensity</abbr></th>
+			</tr>
+		</tfoot>
 	</table>
 </div>
